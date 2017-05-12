@@ -1,5 +1,5 @@
 angular
-  .module("animal_farm", [
+  .module("animal_adoption", [
     "ui.router",
     "ngResource"
   ])
@@ -11,7 +11,7 @@ angular
     "$resource",
     LocationFactoryFunction
   ])
-  .controller("LocationIndexController") [
+  .controller("LocationIndexController", [
     "LocationFactory",
     LocationIndexControllerFunction
   ]);
@@ -23,4 +23,10 @@ angular
       controller:"LocationIndexController",
       controllerAs:"vm"
     })
+  }
+  function LocationFactoryFunction ($resource){
+    return $resource("http://localhost:3000/locations/:id",{},{});
+  }
+  function LocationIndexControllerFunction(LocationFactory){
+    this.locations = LocationFactory.query();
   }
