@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 20170511194556) do
     t.boolean "is_adopted"
     t.string  "photo_url"
     t.string  "preferences"
-    t.integer "days_left"
+    t.integer "time_left"
+    t.string "location"
+    t.string "gender"
   end
 
   create_table "locations", force: :cascade do |t|
