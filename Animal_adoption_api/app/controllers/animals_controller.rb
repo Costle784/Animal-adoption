@@ -1,7 +1,8 @@
 class AnimalsController < ApplicationController
   def show
-    @location = location.find(params[:location_id])
+    @location = Location.find(params[:location_id])
     @animal = Animal.find(params[:id])
+    render json: @animal
   end
 
   def new
@@ -21,6 +22,7 @@ class AnimalsController < ApplicationController
       redirect_to location_path(@location)
     else
       render :new
+    end
   end
 
   def update

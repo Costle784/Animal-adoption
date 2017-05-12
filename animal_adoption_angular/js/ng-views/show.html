@@ -1,0 +1,7 @@
+<h1>{{vm.location.name}}</h1>
+<img ng-src={{vm.location.photo_url}}>
+<h3>{{vm.location.address}}</h3>
+<h3>{{vm.location.phone_number}}</h3>
+<div ng-repeat="animal in vm.location.animals">
+  <div>{{animal.name}}</div>
+</div>

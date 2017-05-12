@@ -6,6 +6,8 @@ class LocationsController < ApplicationController
 
   def show
     @location = Location.find(params[:id])
-    render json: @location
+    @animals = @location.animals
+
+    render json: @location, include: :animals
   end
 end
