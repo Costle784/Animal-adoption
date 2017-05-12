@@ -18,11 +18,12 @@ ActiveRecord::Schema.define(version: 20170512124137) do
   create_table "animals", force: :cascade do |t|
     t.string  "animal_type"
     t.string  "name"
+    t.string  "gender"
     t.integer "age"
     t.boolean "is_adopted"
-    t.string  "photo_url"
     t.string  "preferences"
     t.integer "days_left"
+    t.string  "photo_url"
     t.integer "location_id"
     t.index ["location_id"], name: "index_animals_on_location_id", using: :btree
   end
