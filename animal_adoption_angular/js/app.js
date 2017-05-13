@@ -57,7 +57,6 @@ angular
   }
   function AnimalFactoryFunction ($resource){
     return $resource("http://localhost:3000/locations/:location_id/animals/:id",{},{});
-
   }
 
   function LocationIndexControllerFunction(LocationFactory){
