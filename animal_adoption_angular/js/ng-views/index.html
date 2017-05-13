@@ -1,5 +1,7 @@
 <h1>Animal Adoption locations</h1>
 <div ng-repeat = "location in vm.locations">
+  <h2><a ui-sref="locationShow({id: location.id})">{{location.name}}</a></h2>
   <p><img ng-src={{location.photo_url}}></p>
-  <p><a ui-sref="locationShow({id: location.id})">{{location.name}}</a></p>
+  <h3>{{location.address}}</h3>
+  <hr>
 </div>
