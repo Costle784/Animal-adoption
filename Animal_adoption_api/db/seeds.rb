@@ -10,9 +10,10 @@ Animal.destroy_all
 
 
 
-location1=Location.create!({name:"Petluv", address:"5050 Love St. NW, Washington D.C. 20007", photo_url:"https://www.google.com/search?q=pet+store&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjhnPiitOrTAhXD4SYKHVq9AoQQ_AUIDCgD&biw=1440&bih=729#imgdii=oA5F39Hq4grXMM:&imgrc=-qVCkGo8XCGPKM:", phone_number:"(424)530-6789"})
+location1=Location.create!({name:"Paw Justice", address:"5050 Love St. NW, Washington D.C. 20007", photo_url:"http://craigdunn.co.nz/wp-content/uploads/2014/08/PawJustice.jpg", phone_number:"(424)530-6789"})
 location2=Location.create!({name:"Furry Friends Inc.", address:"2020 Kitty St. NW, Washington D.C. 20007", photo_url:"https://s-media-cache-ak0.pinimg.com/originals/08/46/71/0846717a62954c4c78c64244d3306e98.jpg",phone_number:"(560)234-8545"})
-location3=Location.create!({name:"Paws & Claws", address:"4040 State St. NW, Washington D.C. 20007", photo_url:"https://topiclessbar.files.wordpress.com/2012/02/belong-pet-shop.jpg", phone_number:"(603)532-4808"})
+location3=Location.create!({name:"Ruff Road", address:"15 New York Ave. SE, Washington D.C. 204019", photo_url:"https://ruffroadpetrescue.files.wordpress.com/2016/08/ruff-road-logo1-e1472334054575.jpg?w=0&h=320&crop=1",phone_number:"(560)234-8545"})
+location4=Location.create!({name:"Petluv", address:"4040 State St. NW, Washington D.C. 20007", photo_url:"https://topiclessbar.files.wordpress.com/2012/02/belong-pet-shop.jpg", phone_number:"(603)532-4808"})
 
 
 animal1 = Animal.create!({animal_type:"Persian Cat", name:"Apple Jack", gender:"Male", age:3, is_adopted:false, preferences:"Obsessed with Catnip", days_left:7, photo_url:"https://purrfectcatbreeds.com/wp-content/uploads/2014/05/persian-cat3.jpg", location:location1 })
