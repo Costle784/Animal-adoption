@@ -29,6 +29,11 @@ angular
     "$stateParams",
     AnimalShowControllerFunction
   ])
+  .controller("AnimalNewController", [
+    "AnimalFactory",
+    "$stateParams",
+    AnimalNewControllerFunction
+  ])
 
   function RouterFunction($stateProvider){
     $stateProvider
@@ -37,6 +42,12 @@ angular
       templateUrl:"js/ng-views/index.html",
       controller:"LocationIndexController",
       controllerAs:"vm"
+    })
+    .state("animalNew", {
+      url: "locations/:location_id/animals/new",
+      templateUrl: "js/ng-views/animal_new.html",
+      controller: "AnimalNewController",
+      controllerAs: "vm"
     })
     .state("animalShow", {
       url: "/locations/:location_id/animals/:id",
@@ -66,6 +77,13 @@ angular
 
   function LocationShowControllerFunction (LocationFactory, $stateParams) {
     this.location = LocationFactory.get({id: $stateParams.id})
+  }
+
+  function AnimalNewControllerFunction(AnimalFactory, $stateParams) {
+    this.animal = new AnimalFactory();
+    this.create = function() {
+      this.animal.$save()
+    }
   }
 
   function AnimalShowControllerFunction(AnimalFactory, $stateParams) {
