@@ -1,18 +1,7 @@
 class AnimalsController < ApplicationController
-  def show
+  def index
     @location = Location.find(params[:location_id])
-    @animal = Animal.find(params[:id])
-    render json: @animal
-  end
-
-  def new
-    @location = Location.find(params[:location_id])
-    @animal = Animal.new
-  end
-
-  def edit
-    @location = Location.find(params[:location_id])
-    @animal = Animal.find(params[:id])
+    @animals = @location.animals
   end
 
   def create
@@ -23,6 +12,23 @@ class AnimalsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def new
+    @location = Location.find(params[:location_id])
+    @animal = @location.animals.new
+  end
+
+  def edit
+    @location = Location.find(params[:location_id])
+    @animal = @location.animals.find(params[:id])
+    render json: @animal
+  end
+
+  def show
+    @location = Location.find(params[:location_id])
+    @animal = @location.animals.find(params[:id])
+    render json: @animal
   end
 
   def update
