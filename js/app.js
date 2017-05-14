@@ -55,12 +55,19 @@ angular
       controller: "AnimalShowController",
       controllerAs: "vm"
     })
+    .state("animalEdit", {
+      url:"/locations/location_id/animals/:id/edit",
+      templateUrl:"js/ng-views/animal_edit.html",
+      controller:"AnimalEditController",
+      controllerAs:"vm"
+    })
     .state("locationShow", {
       url: "/locations/:id",
       templateUrl: "js/ng-views/show.html",
       controller: "LocationShowController",
       controllerAs: "vm"
     })
+
 
   }
   function LocationFactoryFunction ($resource){
@@ -84,6 +91,15 @@ angular
       this.animal.$save()
     }
   }
+  function AnimalEditControllerFunction(AnimalFactory, $stateParams) {
+      this.animal = AnimalFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
+      this.update = function(){
+        this.animal.$update({location_id: $stateParams.location_id, id: $stateParams.id})
+      }
+      this.destroy = function(){
+        this.animal.$delete({location_id: $stateParams.location_id, id: $stateParams.id})
+      }
+    }
 
   function AnimalShowControllerFunction(AnimalFactory, $stateParams) {
     this.animal = AnimalFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
