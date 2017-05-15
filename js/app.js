@@ -54,6 +54,12 @@ angular
 
   function RouterFunction($stateProvider){
     $stateProvider
+    .state("home", {
+      url:"",
+      templateUrl:"js/ng-views/index.html",
+      controller:"LocationIndexController",
+      controllerAs:"vm"
+    })
     .state("locationIndex",{
       url:"/locations",
       templateUrl:"js/ng-views/index.html",
