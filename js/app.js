@@ -36,11 +36,13 @@ angular
   .controller("AnimalNewController", [
     "AnimalLocationFactory",
     "$stateParams",
+    "$location",
     AnimalNewControllerFunction
   ])
   .controller("AnimalEditController", [
     "AnimalLocationFactory",
     "$stateParams",
+    "$location",
     AnimalEditControllerFunction
   ])
   .controller("AnimalShowController", [
@@ -116,20 +118,23 @@ angular
     this.animals = AnimalFactory.query();
   }
 
-  function AnimalNewControllerFunction(AnimalLocationFactory, $stateParams) {
+  function AnimalNewControllerFunction(AnimalLocationFactory, $stateParams, $location) {
     this.animal = new AnimalLocationFactory();
     this.create = function() {
       this.animal.$save({location_id: $stateParams.location_id})
+      $location.path('/locations/' + $stateParams.location_id)
     }
   }
 
-  function AnimalEditControllerFunction(AnimalLocationFactory, $stateParams) {
+  function AnimalEditControllerFunction(AnimalLocationFactory, $stateParams, $location) {
     this.animal = AnimalLocationFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
     this.update = function(){
       this.animal.$update({location_id: $stateParams.location_id, id: $stateParams.id});
+      $location.path('/locations/' + $stateParams.location_id + '/animals/' + $stateParams.id)
     }
     this.destroy = function(){
       this.animal.$delete({location_id: $stateParams.location_id, id: $stateParams.id})
+      $location.path('/locations/' + $stateParams.location_id)
     }
   }
 
