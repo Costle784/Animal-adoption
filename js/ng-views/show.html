@@ -3,9 +3,9 @@
 <h3>{{vm.location.address}}</h3>
 <h3>{{vm.location.phone_number}}</h3>
 <hr>
-<h2>Our Animals <a ui-sref='animalNew'>(+)</a></h2>
+<h2>Our Animals <a ui-sref='animalNew({location_id: vm.location.id})'>(+)</a></h2>
 <div ng-repeat="animal in vm.location.animals">
-  <h3><a ui-sref="animalShow">{{animal.name}}</a></h3>
+  <h3><a ui-sref="animalShow({id: animal.id, location_id: vm.location.id})">{{animal.name}}</a></h3>
   <p><img ng-src={{animal.photo_url}}></p>
   <p>{{animal.age}} Years Old</p>
   <p>{{animal.gender}}</p>
