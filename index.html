@@ -2,15 +2,27 @@
 <html ng-app='animal_adoption'>
   <head>
     <meta charset="utf-8">
-    <title>Animal Farm</title>
+    <title>Paw Justice</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-resource.min.js"></script>
     <script src='js/app.js'></script>
-  </head>
+ </head>
   <body>
-   <h1><a ui-sref= "locationIndex">Animal Adoption</a></h1>
+ <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+<h1><a ui-sref= "locationIndex">Animal Adoption</a></h1>
    <main ui-view></main>
+
   </body>
+  <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+<a href="https://twitter.com/petsAlive56" class="twitter-follow-button" data-show-count="false">Follow @petsAlive56</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 </html>
