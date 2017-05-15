@@ -1,7 +1,13 @@
 body {
   text-align: center;
+  font-family: cursive;
+  background-image: url(https://il2.picdn.net/shutterstock/videos/3248452/thumb/1.jpg);
+  background-position: center;
+
 }
 
 img {
   max-width: 600px;
+  border-radius: 100px;
+
 }
