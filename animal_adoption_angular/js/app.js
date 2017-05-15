@@ -1,7 +1,8 @@
 angular
   .module("animal_adoption", [
     "ui.router",
-    "ngResource"
+    "ngResource",
+    "$window"
   ])
   .config([
     "$stateProvider",
@@ -25,8 +26,15 @@ angular
     "$stateParams",
     LocationShowControllerFunction
   ])
+  .controller("AnimalIndexController", [
+    "AnimalFactory",
+    AnimalIndexControllerFunction
+  ])
   .controller("AnimalNewController", [
     "AnimalFactory",
+    "$stateParams",
+    "$location",
+    "$routeParams",
     AnimalNewControllerFunction
   ])
   .controller("AnimalEditController", [
@@ -56,6 +64,12 @@ angular
       controller: "LocationShowController",
       controllerAs: "vm"
     })
+    .state("animalIndex",{
+      url: "/animals",
+      templateUrl:"js/ng-views/animal_index.html",
+      controller: "AnimalIndexController",
+      controllerAs:"vm"
+      })
     .state("animalNew", {
       url: "/locations/:location_id/animals/new",
       templateUrl: "js/ng-views/animal_new.html",
@@ -93,12 +107,19 @@ angular
     this.location = LocationFactory.get({id: $stateParams.id})
   }
 
-  function AnimalNewControllerFunction(AnimalFactory) {
+  function AnimalIndexControllerFunction(AnimalFactory) {
+    this.animals = AnimalFactory.query();
+  }
+
+  function AnimalNewControllerFunction(AnimalFactory, $stateParams, $location, $routeParams) {
     this.animal = new AnimalFactory();
     this.create = function() {
-      this.animal.$save()
+      this.animal.$save({location_id: $stateParams.location_id})
+      $location.path('/locations/' + $stateParams.location_id)
+      $routeParams.reload()
     }
   }
+
   function AnimalEditControllerFunction(AnimalFactory, $stateParams, $location) {
     this.animal = AnimalFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
     this.update = function(){
@@ -109,7 +130,6 @@ angular
       this.animal.$delete({location_id: $stateParams.location_id, id: $stateParams.id})
       $location.path('/locations/' + $stateParams.location_id)
     }
-
   }
 
   function AnimalShowControllerFunction(AnimalFactory, $stateParams) {
