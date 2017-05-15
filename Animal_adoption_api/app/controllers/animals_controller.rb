@@ -1,22 +1,15 @@
 class AnimalsController < ApplicationController
-  def index
-    @location = Location.find(params[:location_id])
-    @animals = @location.animals
-  end
 
   def create
     @location = Location.find(params[:location_id])
-    @animal = @location.animals.new(animal_params)
-    if @animal.save
-      redirect_to location_path(@location)
-    else
-      render :new
-    end
+    @animal = @location.animals.create!(animal_params)
+    render json: @animal
   end
 
   def new
     @location = Location.find(params[:location_id])
     @animal = @location.animals.new
+    render json: @animal
   end
 
   def edit
