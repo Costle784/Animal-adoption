@@ -1,4 +1,7 @@
 <h3>{{vm.animal.name}}</h3>
+<p>{{vm.animal.days_left}} days left</p>
+<p><img ng-src={{vm.animal.photo_url}}></p>
+<p>{{vm.animal.age}} years old</p>
+<p>{{vm.animal.preferences}}</p
 
-<p>{{animal.days_left}}</p>
-<p>{{animal.preferences}}</p>
+<p><a ui-sref="animalEdit({location_id: vm.animal.location_id, id: vm.animal.id})">Edit Animal</a></p>

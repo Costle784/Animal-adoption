@@ -5,6 +5,7 @@ angular
   ])
   .config([
     "$stateProvider",
+    "$locationProvider",
     RouterFunction
   ])
   .factory("LocationFactory", [
@@ -24,16 +25,22 @@ angular
     "$stateParams",
     LocationShowControllerFunction
   ])
+  .controller("AnimalNewController", [
+    "AnimalFactory",
+    AnimalNewControllerFunction
+  ])
+  .controller("AnimalEditController", [
+    "AnimalFactory",
+    "$stateParams",
+    "$location",
+    AnimalEditControllerFunction
+  ])
   .controller("AnimalShowController", [
     "AnimalFactory",
     "$stateParams",
     AnimalShowControllerFunction
   ])
-  .controller("AnimalNewController", [
-    "AnimalFactory",
-    "$stateParams",
-    AnimalNewControllerFunction
-  ])
+
 
   function RouterFunction($stateProvider){
     $stateProvider
@@ -43,22 +50,28 @@ angular
       controller:"LocationIndexController",
       controllerAs:"vm"
     })
+    .state("locationShow", {
+      url: "/locations/:id",
+      templateUrl: "js/ng-views/show.html",
+      controller: "LocationShowController",
+      controllerAs: "vm"
+    })
     .state("animalNew", {
-      url: "locations/:location_id/animals/new",
+      url: "/locations/:location_id/animals/new",
       templateUrl: "js/ng-views/animal_new.html",
       controller: "AnimalNewController",
       controllerAs: "vm"
+    })
+    .state("animalEdit", {
+      url:"/locations/:location_id/animals/:id/edit",
+      templateUrl:"js/ng-views/animal_edit.html",
+      controller:"AnimalEditController",
+      controllerAs:"vm"
     })
     .state("animalShow", {
       url: "/locations/:location_id/animals/:id",
       templateUrl: "js/ng-views/animal_show.html",
       controller: "AnimalShowController",
-      controllerAs: "vm"
-    })
-    .state("locationShow", {
-      url: "/locations/:id",
-      templateUrl: "js/ng-views/show.html",
-      controller: "LocationShowController",
       controllerAs: "vm"
     })
 
@@ -67,7 +80,9 @@ angular
     return $resource("http://localhost:3000/locations/:id",{},{});
   }
   function AnimalFactoryFunction ($resource){
-    return $resource("http://localhost:3000/locations/:location_id/animals/:id",{},{});
+    return $resource("http://localhost:3000/locations/:location_id/animals/:id",{},{
+        update: {method: "PUT"}
+    });
   }
 
   function LocationIndexControllerFunction(LocationFactory){
@@ -78,11 +93,23 @@ angular
     this.location = LocationFactory.get({id: $stateParams.id})
   }
 
-  function AnimalNewControllerFunction(AnimalFactory, $stateParams) {
+  function AnimalNewControllerFunction(AnimalFactory) {
     this.animal = new AnimalFactory();
     this.create = function() {
       this.animal.$save()
     }
+  }
+  function AnimalEditControllerFunction(AnimalFactory, $stateParams, $location) {
+    this.animal = AnimalFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
+    this.update = function(){
+      this.animal.$update({location_id: $stateParams.location_id, id: $stateParams.id});
+      $location.path('/locations/' + $stateParams.location_id + '/animals/' + $stateParams.id)
+    }
+    this.destroy = function(){
+      this.animal.$delete({location_id: $stateParams.location_id, id: $stateParams.id})
+      $location.path('/locations/' + $stateParams.location_id)
+    }
+
   }
 
   function AnimalShowControllerFunction(AnimalFactory, $stateParams) {

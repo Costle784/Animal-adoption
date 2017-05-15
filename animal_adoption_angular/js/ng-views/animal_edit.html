@@ -1,0 +1,14 @@
+<h2>Edit Animal</h2>
+<form>
+  <p><label>Animal Type: <input value="vm.animal.animal_type" ng-model='vm.animal.animal_type'></label></p>
+  <p><label>Name: <input value="vm.animal.name" ng-model=vm.animal.name></label></p>
+  <p><label>Gender: <input value="vm.animal.gender" ng-model=vm.animal.gender></label></p>
+  <p><label>Age: <input value="vm.animal.age" ng-model=vm.animal.age></label></p>
+  <p><label>Animal Preferences: <input value="vm.animal.preferences" ng-model=vm.animal.preferences></label></p>
+  <p><label>Days Left: <input value="vm.animal.days_left" ng-model=vm.animal.days_left></label></p>
+  <p><label>Photo Url: <input value="photo_url" ng-model=photo_url></label></p>
+  <p><label>Is this animal adopted?<input value="vm.animal.is_adopted" ng-model=vm.animal.is_adopted></label></p>
+  <button type='button' data-ng-click='vm.update()'>Update</button>
+</form>
+<hr>
+<button data-ng-click="vm.destroy()">Terminate Animal</button>
