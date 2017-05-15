@@ -1,5 +1,11 @@
 class AnimalsController < ApplicationController
 
+  def index
+    @animals = Animal.all
+    render json: @animals
+  end
+
+
   def create
     @location = Location.find(params[:location_id])
     @animal = @location.animals.create!(animal_params)
