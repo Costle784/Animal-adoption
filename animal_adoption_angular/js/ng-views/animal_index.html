@@ -1,8 +1,11 @@
 <h1>All Animals</h1>
+<h2>Search Animals</h2>
+<input type="text" ng-model="searchanimal.type">
+<hr>
 
-<div ng-repeat = "animal in vm.animals">
-  <h1> {{animal.name}}</h1>
-  <!-- <h2><a ui-sref="locationShow({id: location.id})">{{location.name}}</a></h2>
+<div ng-repeat = "animal in vm.animals | filter: searchanimal.type">
+  <h1><a ui-sref="animalShow({id: animal.id, location_id: animal.location_id})">{{animal.name}}</a></h1>
+  <h2>{{$parent.location.address}}</h2>
   <p><img ng-src={{animal.photo_url}}></p>
-  <hr> -->
+  <hr>
 </div>
