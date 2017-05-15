@@ -1,8 +1,10 @@
 body {
   text-align: center;
   font-family: cursive;
-  background-image: url(https://il2.picdn.net/shutterstock/videos/3248452/thumb/1.jpg);
-  background-position: center;
+  font-size: 15px;
+  background-image: url("http://cdn.pcwallart.com/images/solid-color-red-background-wallpaper-4.jpg");
+  color: white;
+
 
 }
 
@@ -10,4 +12,8 @@ img {
   max-width: 600px;
   border-radius: 100px;
 
+}
+
+a {
+    color: white;
 }
