@@ -11,7 +11,19 @@ body {
 img {
   max-width: 600px;
   border-radius: 100px;
+  -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+  animation-duration: 2s;
+  position: relative;
+}
 
+@-webkit-keyframes mymove {
+    from {top: 0px;}
+    to {top: 200px;}
+}
+
+@keyframes mymove {
+    from {top: 0px;}
+    to {top: 200px;}
 }
 
 a {
