@@ -5,11 +5,21 @@
 
 <div ng-repeat = "animal in vm.animals | filter: searchanimal.type">
   <h1><a ui-sref="animalShow({id: animal.id, location_id: animal.location_id})">{{animal.name}}</a></h1>
-  <h2>{{$parent.location.address}}</h2>
+  <h2>{{animal.locations}}</h2>
   <p><img ng-src={{animal.photo_url}}></p>
   <hr>
 </div>
 <h1>Don't like our animal selection?? Search All shelters Accross the US!!</h1>
+
+<select id="dropdown">
+  <option value='cat'>Cat</option>
+  <option value='dog'>Dog</option>
+  <option value='bird'>Bird</option>
+  <option value='chinchilla'>Chinchilla</option>
+  <option value='hamster'>Hamster</option>
+  <option value='rabbit'>Rabbit</option>
+</select>
+
 <form id="search">
   <input type="search" placeholder="zipcode" id="userinput">
   <input type="submit" value="Submit" id='button'>
