@@ -1,12 +1,13 @@
 <h2>New animal</h2>
 <form>
-  <p><input placeholder="Animal type" ng-model="vm.animal.animal_type"></p>
-  <p><input placeholder="Name" ng-model="vm.animal.name"></p>
-  <p><input placeholder="Gender" ng-model="vm.animal.gender" /></p>
-  <p><input placeholder="Age" ng-model="vm.animal.age" /></p>
-  <p><input placeholder="Adopted?" ng-model="vm.animal.is_adopted" /></p>
-  <p><input placeholder="Preferences" ng-model="vm.animal.preferences" /></p>
-  <p><input placeholder="Days left" ng-model="vm.animal.days_left" /></p>
-  <p><input placeholder="Photo Url" ng-model="photo_url" /></p>
+  <p><label>Animal Type: </label><input placeholder="Animal type" ng-model="vm.animal.animal_type"></p>
+  <p><label>Name: </label><input placeholder="Name" ng-model="vm.animal.name"></p>
+  <p><label>Gender: </label><input placeholder="Gender" ng-model="vm.animal.gender" /></p>
+  <p><label>Age: </label><input placeholder="Age" ng-model="vm.animal.age" /></p>
+  <p><label>Is Adopted: </label><input placeholder="Adopted?" ng-model="vm.animal.is_adopted" /></p>
+  <p><label>Preferences: </label><input placeholder="Preferences" ng-model="vm.animal.preferences" /></p>
+  <p><label>Days left: </label><input placeholder="Days left" ng-model="vm.animal.days_left" /></p>
+  <p><label>Photo: </label><input placeholder="Photo Url" ng-model="photo_url" /></p>
   <button type="button" ng-click="vm.create()">Add Animal</button>
 </form>
+<hr>

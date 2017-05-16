@@ -1,7 +1,7 @@
 angular
   .module("animal_adoption", [
     "ui.router",
-    "ngResource"
+    "ngResource",
   ])
   .config([
     "$stateProvider",
@@ -11,6 +11,10 @@ angular
   .factory("LocationFactory", [
     "$resource",
     LocationFactoryFunction
+  ])
+  .factory("AnimalLocationFactory", [
+    "$resource",
+    AnimalLocationFactoryFunction
   ])
   .factory("AnimalFactory", [
     "$resource",
@@ -25,18 +29,24 @@ angular
     "$stateParams",
     LocationShowControllerFunction
   ])
-  .controller("AnimalNewController", [
+  .controller("AnimalIndexController", [
     "AnimalFactory",
+    AnimalIndexControllerFunction
+  ])
+  .controller("AnimalNewController", [
+    "AnimalLocationFactory",
+    "$stateParams",
+    "$location",
     AnimalNewControllerFunction
   ])
   .controller("AnimalEditController", [
-    "AnimalFactory",
+    "AnimalLocationFactory",
     "$stateParams",
     "$location",
     AnimalEditControllerFunction
   ])
   .controller("AnimalShowController", [
-    "AnimalFactory",
+    "AnimalLocationFactory",
     "$stateParams",
     AnimalShowControllerFunction
   ])
@@ -44,6 +54,12 @@ angular
 
   function RouterFunction($stateProvider){
     $stateProvider
+    .state("home", {
+      url:"",
+      templateUrl:"js/ng-views/index.html",
+      controller:"LocationIndexController",
+      controllerAs:"vm"
+    })
     .state("locationIndex",{
       url:"/locations",
       templateUrl:"js/ng-views/index.html",
@@ -56,6 +72,12 @@ angular
       controller: "LocationShowController",
       controllerAs: "vm"
     })
+    .state("animalIndex",{
+      url: "/animals",
+      templateUrl:"js/ng-views/animal_index.html",
+      controller: "AnimalIndexController",
+      controllerAs:"vm"
+      })
     .state("animalNew", {
       url: "/locations/:location_id/animals/new",
       templateUrl: "js/ng-views/animal_new.html",
@@ -79,10 +101,15 @@ angular
   function LocationFactoryFunction ($resource){
     return $resource("http://localhost:3000/locations/:id",{},{});
   }
-  function AnimalFactoryFunction ($resource){
+
+  function AnimalLocationFactoryFunction ($resource){
     return $resource("http://localhost:3000/locations/:location_id/animals/:id",{},{
         update: {method: "PUT"}
     });
+  }
+
+  function AnimalFactoryFunction($resource) {
+    return $resource("http://localhost:3000/animals")
   }
 
   function LocationIndexControllerFunction(LocationFactory){
@@ -93,14 +120,43 @@ angular
     this.location = LocationFactory.get({id: $stateParams.id})
   }
 
-  function AnimalNewControllerFunction(AnimalFactory) {
-    this.animal = new AnimalFactory();
+  function AnimalIndexControllerFunction(AnimalFactory) {
+    this.animals = AnimalFactory.query();
+
+    let searchButton = $('#button')
+    let userInput = $('#userinput')
+    let responseContainer = $('#container')
+
+    searchButton.on('click', (evt) => {
+      evt.preventDefault();
+      userInput = userInput.val();
+
+      let url = `http://api.petfinder.com/pet.find?key=9c3a9a19debc3ac22a158b34c0d742cb&format=json&sig=d035d4ae3ce0dcbe2d96356b180e5fde&location=${userInput}`
+
+      $.ajax({
+        url: url,
+        type: "get",
+        dataType: "json"
+      }).done((response) => {
+        console.log(response)
+      }).fail((response) => {
+        console.log("Ajax request fails!")
+      }).always(() => {
+        console.log("This always happens regardless of successful ajax request or not.")
+      })
+    })
+  }
+
+  function AnimalNewControllerFunction(AnimalLocationFactory, $stateParams, $location) {
+    this.animal = new AnimalLocationFactory();
     this.create = function() {
-      this.animal.$save()
+      this.animal.$save({location_id: $stateParams.location_id})
+      $location.path('/locations/' + $stateParams.location_id)
     }
   }
-  function AnimalEditControllerFunction(AnimalFactory, $stateParams, $location) {
-    this.animal = AnimalFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
+
+  function AnimalEditControllerFunction(AnimalLocationFactory, $stateParams, $location) {
+    this.animal = AnimalLocationFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
     this.update = function(){
       this.animal.$update({location_id: $stateParams.location_id, id: $stateParams.id});
       $location.path('/locations/' + $stateParams.location_id + '/animals/' + $stateParams.id)
@@ -109,9 +165,8 @@ angular
       this.animal.$delete({location_id: $stateParams.location_id, id: $stateParams.id})
       $location.path('/locations/' + $stateParams.location_id)
     }
-
   }
 
-  function AnimalShowControllerFunction(AnimalFactory, $stateParams) {
-    this.animal = AnimalFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
+  function AnimalShowControllerFunction(AnimalLocationFactory, $stateParams) {
+    this.animal = AnimalLocationFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
   }
