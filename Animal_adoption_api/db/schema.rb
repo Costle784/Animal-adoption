@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170515184602) do
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.string "address"
+    t.string "address_url"
     t.string "photo_url"
     t.string "phone_number"
   end

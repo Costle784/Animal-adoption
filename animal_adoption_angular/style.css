@@ -19,3 +19,9 @@ hr {
 #dropdown, #userinput {
   margin:20px;
 }
+
+.container {
+  float:right;
+  margin-right: 200px;
+
+}
