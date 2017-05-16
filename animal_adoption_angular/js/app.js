@@ -99,17 +99,17 @@ angular
 
   }
   function LocationFactoryFunction ($resource){
-    return $resource("http://localhost:3000/locations/:id",{},{});
+    return $resource("http://animaladoption.herokuapp.com/locations/:id",{},{});
   }
 
   function AnimalLocationFactoryFunction ($resource){
-    return $resource("http://localhost:3000/locations/:location_id/animals/:id",{},{
+    return $resource("http://animaladoption.herokuapp.com/locations/:location_id/animals/:id",{},{
         update: {method: "PUT"}
     });
   }
 
   function AnimalFactoryFunction($resource) {
-    return $resource("http://localhost:3000/animals")
+    return $resource("http://animaladoption.herokuapp.com/animals")
   }
 
   function LocationIndexControllerFunction(LocationFactory){
@@ -126,24 +126,34 @@ angular
     let searchButton = $('#button')
     let userInput = $('#userinput')
     let responseContainer = $('#container')
+    let dropdown = $('#dropdown')
+
 
     searchButton.on('click', (evt) => {
       evt.preventDefault();
       userInput = userInput.val();
+      dropdown = dropdown.val();
 
-      let url = `http://api.petfinder.com/pet.find?key=9c3a9a19debc3ac22a158b34c0d742cb&format=json&sig=d035d4ae3ce0dcbe2d96356b180e5fde&location=${userInput}`
+      let url=`http://api.petfinder.com/pet.find?key=14c086ceffd2c9e852e0906962ef08de&format=json&location=${userInput}&animal=${dropdown}`
 
-      $.ajax({
-        url: url,
-        type: "get",
-        dataType: "json"
-      }).done((response) => {
-        console.log(response)
-      }).fail((response) => {
-        console.log("Ajax request fails!")
-      }).always(() => {
-        console.log("This always happens regardless of successful ajax request or not.")
-      })
+      $.getJSON(url, function(petApiData) {
+        console.log('Data retrieved!')
+      });
+
+
+
+
+      // $.ajax({
+      //   url: url,
+      //   type: "get",
+      //   dataType: "json"
+      // }).done((response) => {
+      //   console.log(response)
+      // }).fail((response) => {
+      //   console.log("Ajax request fails!")
+      // }).always(() => {
+      //   console.log("This always happens regardless of successful ajax request or not.")
+      // })
     })
   }
 
