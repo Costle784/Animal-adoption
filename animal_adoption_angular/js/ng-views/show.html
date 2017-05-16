@@ -1,0 +1,19 @@
+<h1>{{vm.location.name}}</h1>
+<img ng-src={{vm.location.photo_url}}>
+<h3>{{vm.location.address}}</h3>
+<h3>{{vm.location.phone_number}}</h3>
+<hr>
+<h2>Our Animals <a ui-sref='animalNew({location_id: vm.location.id})'>(+)</a></h2>
+<div ng-repeat="animal in vm.location.animals">
+  <h3><a ui-sref="animalShow({id: animal.id, location_id: vm.location.id})">{{animal.name}}</a></h3>
+  <p><img ng-src={{animal.photo_url}}></p>
+  <p>{{animal.age}} Years Old</p>
+  <p>{{animal.gender}}</p>
+  <div ng-if="animal.is_adopted == true">
+    <p>Can't wait to split</p>
+  </div>
+  <div ng-if="animal.is_adopted == false">
+    <p>Looking for a family</p>
+  </div>
+</div>
+<hr>

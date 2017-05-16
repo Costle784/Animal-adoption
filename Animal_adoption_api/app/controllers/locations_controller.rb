@@ -4,8 +4,16 @@ class LocationsController < ApplicationController
     render json: @locations
   end
 
+  def new
+    @location = Location.find(params[:location_id])
+    @animal = @location.animals.new
+    render json: @animal
+  end
+
   def show
     @location = Location.find(params[:id])
-    render json: @location
+    @animals = @location.animals
+
+    render json: @location, include: :animals
   end
 end

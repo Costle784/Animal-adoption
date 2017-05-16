@@ -1,26 +1,33 @@
 class AnimalsController < ApplicationController
-  def show
-    @location = location.find(params[:location_id])
-    @animal = Animal.find(params[:id])
+
+  def index
+    @animals = Animal.all
+    render json: @animals
+  end
+
+
+  def create
+    @location = Location.find(params[:location_id])
+    @animal = @location.animals.create!(animal_params)
+    render json: @animal
   end
 
   def new
     @location = Location.find(params[:location_id])
-    @animal = Animal.new
+    @animal = @location.animals.new
+    render json: @animal
   end
 
   def edit
     @location = Location.find(params[:location_id])
-    @animal = Animal.find(params[:id])
+    @animal = @location.animals.find(params[:id])
+    render json: @animal
   end
 
-  def create
+  def show
     @location = Location.find(params[:location_id])
-    @animal = @location.animals.new(animal_params)
-    if @animal.save
-      redirect_to location_path(@location)
-    else
-      render :new
+    @animal = @location.animals.find(params[:id])
+    render json: @animal
   end
 
   def update
