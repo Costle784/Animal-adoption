@@ -1,0 +1,17 @@
+<h1>All Animals</h1>
+<h2>Search Animals</h2>
+<input type="text" ng-model="searchanimal.type">
+<hr>
+
+<div ng-repeat = "animal in vm.animals | filter: searchanimal.type">
+  <h1><a ui-sref="animalShow({id: animal.id, location_id: animal.location_id})">{{animal.name}}</a></h1>
+  <h2>{{$parent.location.address}}</h2>
+  <p><img ng-src={{animal.photo_url}}></p>
+  <hr>
+</div>
+<h1>Don't like our animal selection?? Search All shelters Accross the US!!</h1>
+<form id="search">
+  <input type="search" placeholder="zipcode" id="userinput">
+  <input type="submit" value="Submit" id='button'>
+</form>
+<div id='container'></div>
