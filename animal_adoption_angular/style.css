@@ -19,6 +19,8 @@ a {
     color: white;
 }
 
-#Dog clipart {
-max-width: 100px;
+.container {
+  float:right;
+  margin-right: 200px;
+
 }
