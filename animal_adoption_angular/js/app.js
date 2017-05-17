@@ -131,21 +131,21 @@ angular
       evt.preventDefault();
       userInput = userInput.val();
 
-      let url = `http://api.petfinder.com/pet.find?key=9c3a9a19debc3ac22a158b34c0d742cb&format=json&sig=d035d4ae3ce0dcbe2d96356b180e5fde&location=${userInput}`
-
-      $.ajax({
-        url: url,
-        type: "get",
-        dataType: "json"
-      }).done((response) => {
-        console.log(response)
-      }).fail((response) => {
-        console.log("Ajax request fails!")
-      }).always(() => {
-        console.log("This always happens regardless of successful ajax request or not.")
-      })
-    })
-  }
+      let url = `http://api.petfinder.com/pet.find?key=9c3a9a19debc3ac22a158b34c0d742cb&format=json&location=20008`
+      console.log(${userInput});
+    //   $.ajax({
+    //     url: url,
+    //     type: "get",
+    //     dataType: "json"
+    //   }).done((response) => {
+    //     console.log(response)
+    //   }).fail((response) => {
+    //     console.log("Ajax request fails!")
+    //   }).always(() => {
+    //     console.log("This always happens regardless of successful ajax request or not.")
+    //   })
+    // })
+  })
 
   function AnimalNewControllerFunction(AnimalLocationFactory, $stateParams, $location) {
     this.animal = new AnimalLocationFactory();
