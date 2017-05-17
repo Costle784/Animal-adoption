@@ -99,17 +99,17 @@ angular
 
   }
   function LocationFactoryFunction ($resource){
-    return $resource("http://localhost:3000/locations/:id",{},{});
+    return $resource("http://animaladoption.herokuapp.com/locations/:id",{},{});
   }
 
   function AnimalLocationFactoryFunction ($resource){
-    return $resource("http://localhost:3000/locations/:location_id/animals/:id",{},{
+    return $resource("http://animaladoption.herokuapp.com/locations/:location_id/animals/:id",{},{
         update: {method: "PUT"}
     });
   }
 
   function AnimalFactoryFunction($resource) {
-    return $resource("http://localhost:3000/animals")
+    return $resource("http://animaladoption.herokuapp.com/animals")
   }
 
   function LocationIndexControllerFunction(LocationFactory){
@@ -126,11 +126,15 @@ angular
     let searchButton = $('#button')
     let userInput = $('#userinput')
     let responseContainer = $('#container')
+    let dropdown = $('#dropdown')
+
 
     searchButton.on('click', (evt) => {
       evt.preventDefault();
       userInput = userInput.val();
+      dropdown = dropdown.val();
 
+<<<<<<< HEAD
       let url = `http://api.petfinder.com/pet.find?key=9c3a9a19debc3ac22a158b34c0d742cb&format=json&location=20008`
       console.log(${userInput});
     //   $.ajax({
@@ -146,12 +150,37 @@ angular
     //   })
     // })
   })
+=======
+      let url=`http://api.petfinder.com/pet.find?key=14c086ceffd2c9e852e0906962ef08de&format=json&location=${userInput}&animal=${dropdown}`
+
+      $.getJSON(url, function(petApiData) {
+        console.log('Data retrieved!')
+      });
+
+
+
+
+      // $.ajax({
+      //   url: url,
+      //   type: "get",
+      //   dataType: "json"
+      // }).done((response) => {
+      //   console.log(response)
+      // }).fail((response) => {
+      //   console.log("Ajax request fails!")
+      // }).always(() => {
+      //   console.log("This always happens regardless of successful ajax request or not.")
+      // })
+    })
+  }
+>>>>>>> a065706badf902acc3cd31616f3887786096ba64
 
   function AnimalNewControllerFunction(AnimalLocationFactory, $stateParams, $location) {
     this.animal = new AnimalLocationFactory();
     this.create = function() {
-      this.animal.$save({location_id: $stateParams.location_id})
-      $location.path('/locations/' + $stateParams.location_id)
+      this.animal.$save({location_id: $stateParams.location_id}, () => {
+        $location.path('/locations/' + $stateParams.location_id)
+      })
     }
   }
 
