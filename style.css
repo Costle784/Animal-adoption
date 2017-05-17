@@ -5,15 +5,24 @@ body {
   background-image: url("http://cdn.pcwallart.com/images/solid-color-red-background-wallpaper-4.jpg");
   color: white;
 }
+
 img {
   max-width: 600px;
   border-radius: 100px;
 }
+
 a {
   color: white;
 }
+
+a:hover {
+  color: blue;
+}
+
 hr {
   width:80%;
+  margin-top:30px;
+  margin-bottom:30px;
 }
 
 #dropdown, #userinput {
@@ -21,7 +30,23 @@ hr {
 }
 
 .container {
-  float:right;
-  margin-right: 200px;
+  display:flex;
+  justify-content: center;
+}
 
+}
+.daysleft {
+  font-weight:600;
+  color:green;
+}
+
+ul {
+ padding-left:0;
+}
+ul li {
+ list-style-position:inside
+}
+
+.fb-like, .twitter-follow-button {
+  margin:30px;
 }
