@@ -29,6 +29,12 @@ angular
     "$stateParams",
     LocationShowControllerFunction
   ])
+  .controller("FormController", [
+    "$stateParams",
+    "$location",
+    "AnimalFactory",
+    FormControllerFunction
+  ])
   .controller("AnimalIndexController", [
     "AnimalFactory",
     AnimalIndexControllerFunction
@@ -50,6 +56,7 @@ angular
     "$stateParams",
     AnimalShowControllerFunction
   ])
+
 
 
   function RouterFunction($stateProvider){
@@ -96,20 +103,26 @@ angular
       controller: "AnimalShowController",
       controllerAs: "vm"
     })
-
+    .state("form", {
+      url: "/locations/:location_id/animals/:id/form",
+      templateUrl: "js/ng-views/form",
+      controller: "FormController",
+      controllerAs: "vm"
+    })
   }
+
   function LocationFactoryFunction ($resource){
-    return $resource("http://animaladoption.herokuapp.com/locations/:id",{},{});
+    return $resource("https://animaladoption.herokuapp.com/locations/:id",{},{});
   }
 
   function AnimalLocationFactoryFunction ($resource){
-    return $resource("http://animaladoption.herokuapp.com/locations/:location_id/animals/:id",{},{
+    return $resource("https://animaladoption.herokuapp.com/locations/:location_id/animals/:id",{},{
         update: {method: "PUT"}
     });
   }
 
   function AnimalFactoryFunction($resource) {
-    return $resource("http://animaladoption.herokuapp.com/animals")
+    return $resource("https://animaladoption.herokuapp.com/animals")
   }
 
   function LocationIndexControllerFunction(LocationFactory){
@@ -122,39 +135,6 @@ angular
 
   function AnimalIndexControllerFunction(AnimalFactory) {
     this.animals = AnimalFactory.query();
-
-    let searchButton = $('#button')
-    let userInput = $('#userinput')
-    let responseContainer = $('#container')
-    let dropdown = $('#dropdown')
-
-
-    searchButton.on('click', (evt) => {
-      evt.preventDefault();
-      userInput = userInput.val();
-      dropdown = dropdown.val();
-
-      let url=`http://api.petfinder.com/pet.find?key=14c086ceffd2c9e852e0906962ef08de&format=json&location=${userInput}&animal=${dropdown}`
-
-      $.getJSON(url, function(petApiData) {
-        console.log('Data retrieved!')
-      });
-
-
-
-
-      // $.ajax({
-      //   url: url,
-      //   type: "get",
-      //   dataType: "json"
-      // }).done((response) => {
-      //   console.log(response)
-      // }).fail((response) => {
-      //   console.log("Ajax request fails!")
-      // }).always(() => {
-      //   console.log("This always happens regardless of successful ajax request or not.")
-      // })
-    })
   }
 
   function AnimalNewControllerFunction(AnimalLocationFactory, $stateParams, $location) {
@@ -180,4 +160,87 @@ angular
 
   function AnimalShowControllerFunction(AnimalLocationFactory, $stateParams) {
     this.animal = AnimalLocationFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
+  }
+
+  function FormControllerFunction($stateParams, $location, AnimalLocationFactory) {
+    this.animal = AnimalLocationFactory.get({location_id: $stateParams.location_id, id: $stateParams.id})
+    function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+    return array;
+    }
+    let text = $('#text')
+    let button = $("#button")
+    let formContainer = $("#form_container")
+    let answerArray1 =[];
+    let answerArray2 =[];
+    let answerArray3 =[];
+    let answersArray = [];
+    let questionsArray = [];
+
+    button.on("click", (evt) => {
+      evt.preventDefault();
+      let url = "https://opentdb.com/api.php?amount=3&category=27&type=multiple"
+      $.ajax({
+        url: url,
+        type: "get",
+        dataType: "json"
+      }).done((response) => {
+
+        let question1 = response.results[0];
+        let question2 = response.results[1];
+        let question3 = response.results[2];
+        questionsArray.push(question1)
+        questionsArray.push(question2)
+        questionsArray.push(question3)
+
+        answerArray1.push(question1.correct_answer)
+        question1.incorrect_answers.map ((wronganswer) => {
+          answerArray1.push(wronganswer);
+        })
+        shuffle(answerArray1);
+        answersArray.push(answerArray1);
+
+        answerArray2.push(question2.correct_answer)
+        question2.incorrect_answers.map ((wronganswer) => {
+          answerArray2.push(wronganswer);
+        })
+        shuffle(answerArray2);
+        answersArray.push(answerArray2);
+
+        answerArray3.push(question3.correct_answer)
+        question3.incorrect_answers.map ((wronganswer) => {
+          answerArray3.push(wronganswer);
+        })
+
+        shuffle(answerArray3);
+        answersArray.push(answerArray3);
+
+
+        let counter = 0;
+        questionsArray.map ((question) => {
+          formContainer.append(`<div>${question.question}</div>`)
+          answersArray[counter].map ((answer) => {
+            formContainer.append(`<div>${answer}</div>`)
+          })
+          counter++;
+          formContainer.append("<input type='text' id='text'><input type='submit'>")
+            answersArray[counter].map () => {
+
+            }
+        })
+
+
+        }).fail((response) => {
+        console.log("Ajax request failed")
+      }).always(() => {
+        console.log("Thank you for using our API")
+      })
+    })
   }
