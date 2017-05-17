@@ -230,10 +230,20 @@ angular
             formContainer.append(`<div>${answer}</div>`)
           })
           counter++;
-          formContainer.append("<input type='text' id='text'><input type='submit'>")
-            answersArray[counter].map (() => {
-
-            })
+          // formContainer.append("<input type='text' id='text'><input type='submit'>")
+          // formContainer.append(`<input type='text' id='text' ng-model="vm.question_${counter}_answer"><button type="button" id="button_${counter}" ng-click="vm.check_answer()">Submit</button>`)
+          formContainer.append(`<input type='text' id='question_${counter}_answer' name='question_${counter}_answer' value="">`)
+          let button = $(`<button type="button" id="button_${counter}">Submit</button>`);
+          formContainer.append(button);
+          button.click(function(){
+            let button_id = $(this).attr("id");
+            let input = $(`question_${counter}_answer`);
+            // console.log("Clicked", arguments);
+            console.log("Clicked", button_id, input.val());
+          })
+            // answersArray[counter].map (() => {
+            //
+            // })
         })
 
 

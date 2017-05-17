@@ -10,6 +10,12 @@
   <ul>
     <p><li>{{animal.age}} Years Old</li></p>
     <p><li>{{animal.gender}}</li></p>
+    <div ng-if="animal.is_adopted == true">
+
+    </div>
+    <div ng-if="animal.is_adopted == false">
+      <p><li>Looking for a family</li></p>
+    </div>
   </ul>
   <hr>
 </div>
