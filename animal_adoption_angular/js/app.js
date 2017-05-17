@@ -160,8 +160,9 @@ angular
   function AnimalNewControllerFunction(AnimalLocationFactory, $stateParams, $location) {
     this.animal = new AnimalLocationFactory();
     this.create = function() {
-      this.animal.$save({location_id: $stateParams.location_id})
-      $location.path('/locations/' + $stateParams.location_id)
+      this.animal.$save({location_id: $stateParams.location_id}, () => {
+        $location.path('/locations/' + $stateParams.location_id)
+      })
     }
   }
 
