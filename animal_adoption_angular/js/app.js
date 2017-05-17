@@ -32,7 +32,7 @@ angular
   .controller("FormController", [
     "$stateParams",
     "$location",
-    "AnimalFactory",
+    "AnimalLocationFactory",
     FormControllerFunction
   ])
   .controller("AnimalIndexController", [
@@ -231,9 +231,9 @@ angular
           })
           counter++;
           formContainer.append("<input type='text' id='text'><input type='submit'>")
-            answersArray[counter].map () => {
+            answersArray[counter].map (() => {
 
-            }
+            })
         })
 
 
