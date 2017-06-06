@@ -153,8 +153,9 @@ angular
       $location.path('/locations/' + $stateParams.location_id + '/animals/' + $stateParams.id)
     }
     this.destroy = function(){
-      this.animal.$delete({location_id: $stateParams.location_id, id: $stateParams.id})
-      $location.path('/locations/' + $stateParams.location_id)
+      this.animal.$delete({location_id: $stateParams.location_id, id: $stateParams.id}, ()=>{
+          $location.path('/locations/' + $stateParams.location_id)
+      })
     }
   }
 
