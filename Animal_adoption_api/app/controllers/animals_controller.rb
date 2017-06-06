@@ -34,18 +34,19 @@ class AnimalsController < ApplicationController
     @location = Location.find(params[:location_id])
     @animal = @location.animals.find(params[:id])
     @animal.update(animal_params)
-    redirect_to location_animal_path(@location, @animal)
+    render json: @animal
   end
 
   def destroy
     @location = Location.find(params[:location_id])
     @animal = @location.animals.find(params[:id])
     @animal.destroy
-    redirect_to location_path(@location)
+    render json: {}
   end
 
   private
   def animal_params
-    params.require(:animal).permit(:animal_type, :name, :age, :is_adopted, :photo_url, :preferences, :days_left)
+    # I noticed gender changes weren't sticking, it was missing from `permit`
+    params.require(:animal).permit(:animal_type, :name, :age, :is_adopted, :photo_url, :preferences, :days_left, :gender)
   end
 end

@@ -6,7 +6,8 @@
   <p><label>Age: <input value="vm.animal.age" ng-model=vm.animal.age></label></p>
   <p><label>Animal Preferences: <input value="vm.animal.preferences" ng-model=vm.animal.preferences></label></p>
   <p><label>Days Left: <input value="vm.animal.days_left" ng-model=vm.animal.days_left></label></p>
-  <p><label>Photo Url: <input value="photo_url" ng-model=photo_url></label></p>
+  <!-- photo_url was missing `vm.animal` in ng-model so was failing to load and save -->
+  <p><label>Photo Url: <input value="vm.animal.photo_url" ng-model=vm.animal.photo_url></label></p>
   <p><label>Is this animal adopted?<input value="vm.animal.is_adopted" ng-model=vm.animal.is_adopted></label></p>
   <button type='button' data-ng-click='vm.update()'>Update</button>
 </form>

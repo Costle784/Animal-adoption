@@ -7,7 +7,8 @@
   <p><label>Is Adopted: </label><input placeholder="Adopted?" ng-model="vm.animal.is_adopted" /></p>
   <p><label>Preferences: </label><input placeholder="Preferences" ng-model="vm.animal.preferences" /></p>
   <p><label>Days left: </label><input placeholder="Days left" ng-model="vm.animal.days_left" /></p>
-  <p><label>Photo: </label><input placeholder="Photo Url" ng-model="photo_url" /></p>
+  <!-- photo_url was missing `vm.animal` in ng-model so was failing to load and save -->
+  <p><label>Photo: </label><input placeholder="Photo Url" ng-model="vm.animal.photo_url" /></p>
   <button type="button" ng-click="vm.create()">Add Animal</button>
 </form>
 <hr>
